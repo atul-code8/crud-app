@@ -4,6 +4,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 
 dotenv.config({path: '.env.local'});
+dotenv.config();
 
 // Create an Express application
 const app = express();

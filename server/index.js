@@ -4,6 +4,8 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 
 dotenv.config();
+const port = process.env.PORT || 5000;
+
 
 // Create an Express application
 const app = express();
@@ -13,16 +15,14 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI , {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.MONGODB_URI);
 
-// Define a simple schema and model for items
+// Define a simple schema for tittle and description and model for items
 const itemSchema = new mongoose.Schema({
   name: String,
   description: String,
 });
+
 const Item = mongoose.model("Item", itemSchema);
 
 app.get("/", async (req, res) => {
@@ -58,7 +58,6 @@ app.delete("/items/:id", async (req, res) => {
   res.json({ message: "Item deleted" });
 });
 
-const port = process.env.PORT || 5000;
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
